@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { DBNAME } from "@/helpers/constants";
 
 type connectionObject = {
     isConnected?: number 
@@ -13,8 +14,7 @@ export async function connectDB() {
     }
 
     try {
-        const database = await mongoose.connect(`${process.env.MONGODB_URI}`)
-        console.log(database.connections[0]);
+        const database = await mongoose.connect(`${process.env.MONGODB_URI}/${DBNAME}`)
         connection.isConnected = database.connections[0].readyState
 
     } catch (error) {

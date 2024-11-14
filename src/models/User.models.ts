@@ -7,7 +7,10 @@ export interface userInterface extends Document {
     avtar?: string,
     role:  "Admin" | "Team member" | "Project manager" | "Viewer",
     isActive: boolean
-    lastLogin?: Date
+    lastLogin?: Date,
+    isVerified?: boolean,
+    verificationCode: number
+    VerificationCodeExpired: Date,
 }
 
 const userSchema: Schema<userInterface> = new mongoose.Schema({
@@ -44,6 +47,18 @@ const userSchema: Schema<userInterface> = new mongoose.Schema({
     },
     lastLogin: {
         type: Date,
+    },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    verificationCode: {
+        type: Number,
+        required: true
+    },
+    VerificationCodeExpired: {
+        type: Date,
+        required: true
     }
 
 }, { timestamps: true })
